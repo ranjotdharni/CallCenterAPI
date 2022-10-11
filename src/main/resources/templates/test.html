@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link th:href = "@{/flair.css}" rel = "stylesheet">
+    <script type = "text/javascript" th:src = "@{/action.js}" defer></script>
+
+    <link type = "text/css" href = "../static/flair.css" rel = "stylesheet">
+    <script type = "text/javascript" src = "../static/action.js" defer></script>
+
+    <title>Document</title>
+</head>
+<body>
+    <div id = "header" class = "hcontainer">
+        <div>User ID</div>
+        <div>Status</div>
+        <div>Time</div>
+    </div>
+
+    <div id = "pagebody">
+        <div id = "listwrapper">
+            <ul id = "listcontainer">
+
+            </ul>
+        </div>
+
+        <div id = "btncontainer">
+            <button id = "activatebtn">
+                Reset
+            </button>
+
+            <button id = "testbtn">
+                Test
+            </button>
+        </div>
+    </div>    
+
+</body>
+</html>

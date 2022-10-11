@@ -12,43 +12,39 @@ import com.example.CallCenterAPI.models.EmployeeModel;
 @Service
 public class RuntimeService implements ServiceTools
 {
-    private static List<EmployeeModel> list = new ArrayList<>();
+    //private static List<EmployeeModel> list = new ArrayList<>();
 
     @Override
-    public String saveEmployee(EmployeeModel e, SseEmitter Emitter)
+    public void saveEmployee(EmployeeModel e, SseEmitter Emitter)
     {
-        list.add(e);
+        //list.add(e);
 
         ExecutorService exe = Executors.newSingleThreadExecutor();
         exe.execute(() -> {
             try
             {
-                Emitter.send("add_success:id:" + e.getId() + "\n\n");
+                Emitter.send(/*"add_success:id:" +*/ e.getId() /*+ "\n\n"*/);
             }
             catch (Exception exc)
             {
-                //Emitter.completeWithError(exc);
-            }
-            finally
-            {
-                //Emitter.complete();
+                exc.printStackTrace();
             }
         });
         
         exe.shutdown();
-        return "proc_succeeded";
+        //return "proc_succeeded";
     }
 
-    @Override
+    /*@Override
     public SseEmitter eventHash()
     {
-        SseEmitter emitter = new SseEmitter(150_000L);
+        SseEmitter emitter = new SseEmitter(-1L);
 
         ExecutorService exe = Executors.newSingleThreadExecutor();
         exe.execute(() -> {
             try
             {
-                emitter.send("establish_success");
+                //emitter.send("establish_success");
             }
             catch (Exception exc)
             {
@@ -62,5 +58,5 @@ public class RuntimeService implements ServiceTools
 
         exe.shutdown();
         return emitter;
-    }
+    }*/
 }

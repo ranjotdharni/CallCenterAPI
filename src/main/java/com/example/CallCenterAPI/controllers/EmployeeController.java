@@ -1,6 +1,8 @@
 package com.example.CallCenterAPI.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,31 +17,29 @@ import com.example.CallCenterAPI.runtime.ServiceTools;
 @RestController
 public class EmployeeController 
 {
-    ArrayList<SseEmitter> emitters = null;
-
     @Autowired
     private ServiceTools service;
+
+    ArrayList<SseEmitter> emitters = new ArrayList<SseEmitter>(Arrays.asList(ServiceTools.eventHash()));
 
     @RequestMapping(value = "/entrance", method = RequestMethod.GET)
     public SseEmitter welcome()
     {   
-        if (emitters == null)
-        {
-            emitters = new ArrayList<SseEmitter>();
-            emitters.add(0, service.eventHash());
+        try {
+            emitters.add(0, ServiceTools.eventHash());
+            emitters.get(0).send("establish_success");
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
         return emitters.get(0);
     }
 
     @RequestMapping(value = "/entrance", method  = RequestMethod.POST)
-    public String saveEmployee(@RequestBody EmployeeModel employee)
+    public void saveEmployee(@RequestBody EmployeeModel employee)
     {  
-        if (emitters == null)
-        {
-            emitters = new ArrayList<SseEmitter>();
-            emitters.add(0, service.eventHash());
-        }
-        String message = service.saveEmployee(employee, emitters.get(0));
-        return message;
+        
+        service.saveEmployee(employee, emitters.get(0));
+        //return message;
     } 
 }

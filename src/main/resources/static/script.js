@@ -10,9 +10,8 @@ function saveEmployee (event)
 
     if (event.data != 'establish_success')
     {
-        alert(event.data);
         const listDiv = document.createElement('div');
-        listDiv.innerHTML = '<div>Wassup</div>';
+        listDiv.innerHTML = '<div>' + event.data + '</div>';
         listDiv.classList.add('listitem');
 
         listContainer.appendChild(listDiv);
