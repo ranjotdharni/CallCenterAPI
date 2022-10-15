@@ -1,2 +1,2 @@
 # CallCenterAPI-test
- Testing an API implementing SSE
+ API for call center agent live-status tracking
