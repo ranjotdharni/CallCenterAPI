@@ -1,11 +1,17 @@
 package com.example.CallCenterAPI.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class EmployeeModel {
-    private String id;
+
+    @Id
+    private int id;
     private String status;
     private String time;  
     
-    public void setId(String id)
+    public void setId(int id)
     {
         this.id = id;
     }
@@ -20,7 +26,7 @@ public class EmployeeModel {
         this.time = time;
     }
 
-    public String getId()
+    public int getId()
     {
         return this.id;
     }
@@ -35,8 +41,9 @@ public class EmployeeModel {
         return this.time;
     }
 
+    @Override
     public String toString()
     {
-        return this.id + "\n" + this.status + "\n" + this.time;
+        return "{\"id\": " + this.id + ", \"status\": \"" + this.status + "\", \"time\": \"" + this.time + "\"}";
     }
 }

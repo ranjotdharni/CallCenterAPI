@@ -1,4 +1,6 @@
 const eventSource = new EventSource('http://localhost:8080/entrance');
+var data;
+
 const listContainer = document.getElementById('listcontainer');
 const activateBtn = document.getElementById('activatebtn');
 const testBtn = document.getElementById('testbtn');
@@ -6,10 +8,11 @@ const states = ['blue', 'green', 'orange'];
 var dots = document.getElementsByClassName('listitem');
 
 activateBtn.addEventListener('click', reset);
-testBtn.addEventListener('click', random);
+testBtn.addEventListener('click', update);
 eventSource.addEventListener('message', saveEmployee)
 
 //eventSource.addEventListener('message', saveEmployee);
+document.onload = fillData;
 window.onload = loadGrid;
 
 function reset (event)
@@ -26,18 +29,28 @@ function reset (event)
     }
 }
 
-function random (event)
+function update (event)
 {
     event.preventDefault();
 
-    var id = Math.floor(Math.random() * 10000);
-
-    if (dots[id].style.backgroundColor == 'rgb(105, 105, 105)')
+    for (var i = 0; i < data.length; i++)
     {
-        dots[id].classList.add("neon");
+       if (dots[i].style.backgroundColor == 'rgb(105, 105, 105)')
+       {
+            dots[i].classList.add('neon');
+       }
+
+       dots[i].style.backgroundColor = data[i].status;
     }
 
-    dots[id].style.backgroundColor = states[Math.floor(Math.random() * 3)];
+    //var id = Math.floor(Math.random() * 10000);
+    //
+    //if (dots[id].style.backgroundColor == 'rgb(105, 105, 105)')
+    //{
+    //    dots[id].classList.add("neon");
+    //}
+    //
+    //dots[id].style.backgroundColor = states[Math.floor(Math.random() * 3)];
 }
 
 function saveEmployee (event)
@@ -76,4 +89,20 @@ function loadGrid(event)
         listDiv.style.backgroundColor = 'rgb(105, 105, 105)';
         listContainer.appendChild(listDiv);
     }
+
+    fillData();
+}
+
+function getData()
+{
+    return fetch("http://localhost:8080/gate").then(function (responseBody)
+    {
+        return responseBody.json();
+
+    });
+}
+
+async function fillData()
+{
+    data = await getData();
 }
